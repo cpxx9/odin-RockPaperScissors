@@ -1,14 +1,15 @@
 let winners = [];
 const choices = ["rock", "paper", "scissors"];
+startGame();
 
 function resetGame() {
   winners = [];
   document.querySelector(".playerScore").textContent = "Score: 0";
-  document.querySelector(".computerScore").textContent = "Score: 0";
+  document.querySelector(".cpuScore").textContent = "Score: 0";
   document.querySelector(".ties").textContent = "Ties: 0";
   document.querySelector(".winner").textContent = "";
   document.querySelector(".playerChoice").textContent = "";
-  document.querySelector(".computerChoice").textContent = "";
+  document.querySelector(".cpuChoice").textContent = "";
   document.querySelector(".reset").style.display = "none";
 }
 
@@ -30,12 +31,12 @@ function playRound(playerChoice) {
     return;
   }
 
-  const computerChoice = computerSelect();
+  const cpuChoice = cpuSelect();
 
-  const winner = checkWinner(playerChoice, computerChoice);
+  const winner = checkWinner(playerChoice, cpuChoice);
   winners.push(winner);
   tallyWins();
-  displayRound(playerChoice, computerChoice, winner);
+  displayRound(playerChoice, cpuChoice, winner);
   wins = checkWins();
   if (wins == 5) {
     //display end results
@@ -50,22 +51,22 @@ function displayEnd() {
 
   if (playerWins == 5) {
     document.querySelector(".winner").textContent =
-      "You won the entire 5 game series!";
+      "You were the first to win 5 games!";
   } else {
     document.querySelector(".winner").textContent =
-      "You lost the entire 5 game series!";
+      "The CPU was first to win 5 games!";
   }
   document.querySelector(".reset").style.display = "flex";
 }
 
-function displayRound(playerChoice, computerChoice, winner) {
+function displayRound(playerChoice, cpuChoice, winner) {
   document.querySelector(".playerChoice").textContent = `You Chose: ${
     playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1)
   }`;
   document.querySelector(
-    ".computerChoice"
-  ).textContent = `The Computer Chose: ${
-    computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)
+    ".cpuChoice"
+  ).textContent = `The CPU Chose: ${
+    cpuChoice.charAt(0).toUpperCase() + cpuChoice.slice(1)
   }`;
   displayRoundWinner(winner);
 }
@@ -73,9 +74,9 @@ function displayRound(playerChoice, computerChoice, winner) {
 function displayRoundWinner(winner) {
   if (winner == "Player") {
     document.querySelector(".winner").textContent = "You won the Round!";
-  } else if (winner == "Computer") {
+  } else if (winner == "CPU") {
     document.querySelector(".winner").textContent =
-      "The Computer won the Round";
+      "The CPU won the Round";
   } else {
     document.querySelector(".winner").textContent = "The Round was a tie";
   }
@@ -83,15 +84,15 @@ function displayRoundWinner(winner) {
 
 function tallyWins() {
   const pWinCount = winners.filter((item) => item == "Player").length;
-  const cWinCount = winners.filter((item) => item == "Computer").length;
+  const cWinCount = winners.filter((item) => item == "CPU").length;
   const ties = winners.filter((item) => item == "Tie").length;
   document.querySelector(".playerScore").textContent = `Score: ${pWinCount}`;
-  document.querySelector(".computerScore").textContent = `Score: ${cWinCount}`;
+  document.querySelector(".cpuScore").textContent = `Score: ${cWinCount}`;
   document.querySelector(".ties").textContent = `Ties: ${ties}`;
 }
 
-function computerSelect() {
-  //todo - update the dom with the computer selection
+function cpuSelect() {
+  //todo - update the dom with the cpu selection
   const choice = choices[Math.floor(Math.random() * choices.length)];
 
   document.querySelector(`.${choice}`).classList.add("active");
@@ -105,7 +106,7 @@ function computerSelect() {
 
 function checkWins() {
   const pWinCount = winners.filter((item) => item == "Player").length;
-  const cWinCount = winners.filter((item) => item == "Computer").length;
+  const cWinCount = winners.filter((item) => item == "CPU").length;
   return Math.max(pWinCount, cWinCount);
 }
 
@@ -119,13 +120,12 @@ function checkWinner(choice1, choice2) {
   } else if (choice1 == choice2) {
     return "Tie";
   } else {
-    return "Computer";
+    return "CPU";
   }
 }
 
 function setWins() {
   const pWinCount = winners.filter((item) => item == "Player").length;
-  const cWinCount = winners.filter((item) => item == "Computer").length;
+  const cWinCount = winners.filter((item) => item == "CPU").length;
   const ties = winners.filter((item) => item == "Tie").length;
 }
-startGame();
