@@ -4,8 +4,8 @@ startGame();
 
 function resetGame() {
   winners = [];
-  document.querySelector(".playerScore").textContent = "Score: 0";
-  document.querySelector(".cpuScore").textContent = "Score: 0";
+  document.querySelector(".playerScore").textContent = "Player Score: 0";
+  document.querySelector(".cpuScore").textContent = "CPU Score: 0";
   document.querySelector(".ties").textContent = "Ties: 0";
   document.querySelector(".winner").textContent = "";
   document.querySelector(".playerChoice").textContent = "";
